@@ -107,7 +107,10 @@ public class CandidateService {
     }
 
     private void validateInput(CandidateInput candidateInput){
-        if (StringUtils.isBlank(candidateInput.getName())){
+        if (StringUtils.isBlank(candidateInput.getName()) ||
+                (candidateInput.getName().trim().split(" ").length < 2) ||
+                (candidateInput.getName().trim().replace(" ", "").length() < 5))
+        {
             throw new GenericOutputException("Invalid name");
         }
         if (StringUtils.isBlank("" + candidateInput.getPartyId())){
