@@ -8,7 +8,6 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -31,6 +30,10 @@ public class CandidateApi {
     public CandidateOutput getById(@PathVariable Long candidateId){
         return candidateService.getById(candidateId);
     }
+
+    @GetMapping("/numberElection/{numberElection}")
+    @ApiOperation(value = "Get number Election")
+    public CandidateOutput getByNumberElection(@PathVariable Long numberElection) { return  candidateService.getByNumberElection(numberElection); }
 
     @PostMapping("/")
     @ApiOperation(value = "Create new candidate")

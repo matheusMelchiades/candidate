@@ -1,9 +1,5 @@
 package br.edu.ulbra.election.candidate.model;
 
-import br.edu.ulbra.election.candidate.output.v1.CandidateOutput;
-import br.edu.ulbra.election.candidate.output.v1.ElectionOutput;
-import br.edu.ulbra.election.candidate.output.v1.PartyOutput;
-
 import javax.persistence.*;
 
 @Entity
@@ -59,24 +55,6 @@ public class Candidate {
 
     public Long getElectionId() {
         return electionId;
-    }
-
-    public static CandidateOutput toCandidateOutput(Candidate candidate) {
-        ElectionOutput el = new ElectionOutput();
-        PartyOutput pa = new PartyOutput();
-
-        el.setId(candidate.getId());
-        pa.setId(candidate.getId());
-
-        CandidateOutput candidateOutput = new CandidateOutput();
-
-        candidateOutput.setId(candidate.getId());
-        candidateOutput.setName(candidate.getName());
-        candidateOutput.setNumberElection(candidate.getNumberElection());
-        candidateOutput.setElectionOutput(el);
-        candidateOutput.setPartyOutput(pa);
-
-        return candidateOutput;
     }
 
     public void setElectionId(Long electionId) {
