@@ -72,18 +72,20 @@ public class CandidateService {
         return toCandidateOutput(candidate);
     }
 
-    public CandidateOutput getByNumberElection(Long numberElection){
+    public List<CandidateOutput> getAllByNumberElection(Long numberElection){
         if(numberElection == null) {
             throw  new GenericOutputException(MESSAGE_INVALID_NUMBER_ELECTION);
         }
 
-        Candidate candidate = candidateRepository.findByNumberElection(numberElection).orElse(null);
+        List<Candidate> candidateList = (List<Candidate>) candidateRepository.findAllByNumberElection(numberElection);
 
-        if (candidate == null) {
-            throw  new GenericOutputException(MESSAGE_INVALID_NUMBER_ELECTION);
+        System.out.println("teste" + candidateList);
+
+        if (candidateList == null) {
+            throw new GenericOutputException(MESSAGE_INVALID_NUMBER_ELECTION);
         }
 
-        return toCandidateOutput(candidate);
+        return candidateList.stream().map(this::toCandidateOutput).collect(Collectors.toList());
     }
 
     public CandidateOutput update(Long candidateId, CandidateInput candidateInput) {
