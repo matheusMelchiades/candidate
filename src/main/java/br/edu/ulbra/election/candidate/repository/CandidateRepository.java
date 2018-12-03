@@ -8,5 +8,6 @@ import java.util.Optional;
 
 public interface CandidateRepository extends CrudRepository<Candidate, Long> {
     List<Candidate> findAllByNumberElection(Long numberElection);
-    Optional<Candidate> findByNumberElectionAndAndElectionId(Long numberElection, Long electionId);
+    Optional<Candidate> findByNumberElectionAndElectionId(Long numberElection, Long electionId);
+
 }

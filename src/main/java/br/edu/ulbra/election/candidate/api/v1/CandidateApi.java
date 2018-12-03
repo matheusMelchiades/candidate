@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/v1/candidate")
 public class CandidateApi {
@@ -34,6 +35,12 @@ public class CandidateApi {
     @GetMapping("/numberElection/{numberElection}")
     @ApiOperation(value = "Get number Election")
     public List<CandidateOutput> getAllByNumberElection(@PathVariable Long numberElection) { return  candidateService.getAllByNumberElection(numberElection); }
+
+    @GetMapping("/numberElection/{numberElection}/election/{electionId}")
+    @ApiOperation(value = "Get number Election by Election id")
+    public CandidateOutput getAllByNumberElection(@PathVariable Long numberElection, @PathVariable Long electionId) {
+        return  candidateService.getCandidateByNumberElectionAndElectionId(numberElection, electionId);
+    }
 
     @PostMapping("/")
     @ApiOperation(value = "Create new candidate")

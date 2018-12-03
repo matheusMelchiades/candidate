@@ -88,6 +88,24 @@ public class CandidateService {
         return candidateList.stream().map(this::toCandidateOutput).collect(Collectors.toList());
     }
 
+    public CandidateOutput getCandidateByNumberElectionAndElectionId(Long numberElection,Long electionId) {
+        if(numberElection == null) {
+            throw  new GenericOutputException(MESSAGE_INVALID_NUMBER_ELECTION);
+        }
+
+        if(electionId == null) {
+            throw  new GenericOutputException(MESSAGE_INVALID_ELECTION_ID);
+        }
+
+        Candidate candidate = candidateRepository.findByNumberElectionAndElectionId(numberElection, electionId).orElse(null);
+
+        if(candidate == null) {
+            throw new GenericOutputException(MESSAGE_CANDIDATE_NOT_FOUND);
+        }
+
+        return toCandidateOutput(candidate);
+    }
+
     public CandidateOutput update(Long candidateId, CandidateInput candidateInput) {
         if (candidateId == null){
             throw new GenericOutputException(MESSAGE_INVALID_ID);
@@ -154,7 +172,7 @@ public class CandidateService {
             throw new GenericOutputException("Invalid Election Id");
         }
 
-        if ( candidateRepository.findByNumberElectionAndAndElectionId(candidateInput.getNumberElection(), candidateInput.getElectionId()).orElse(null) != null) {
+        if ( candidateRepository.findByNumberElectionAndElectionId(candidateInput.getNumberElection(), candidateInput.getElectionId()).orElse(null) != null) {
             throw new GenericOutputException("Invalid Number election, this number election already used in this election");
         }
 
